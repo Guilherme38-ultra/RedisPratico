@@ -1,4 +1,5 @@
 -r requirements.txt
 
-ruff
 pytest
+ruff
+pytest-cov
