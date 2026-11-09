@@ -109,7 +109,5 @@ def menu():
         cursor.close()
         conn.close()
 
-menu()
-
-# Justificativa
-# Precisei utilizar variáveis de ambiente para armazenar a URL de conexão com o banco de dados.
+if __name__ == "__main__":
+    menu()
