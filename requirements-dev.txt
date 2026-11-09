@@ -3,3 +3,4 @@
 pytest
 ruff
 pytest-cov
+psycopg
