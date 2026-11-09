@@ -2,6 +2,7 @@ from unittest.mock import MagicMock
 
 from app import redis_cache as rc
 
+
 def test_get_conn():
     """Verifica se a conexão utiliza a DATABASE_URL configurada."""
     mock_conn = MagicMock()
