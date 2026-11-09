@@ -1,6 +1,6 @@
 from unittest.mock import MagicMock
 
-import .app.redis_cache as rc
+from app import redis_cache as rc
 
 
 def test_get_conn():

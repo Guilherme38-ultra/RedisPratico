@@ -61,5 +61,7 @@ jobs:
       - name: Verificar qualidade do código
         run: ruff check .
 
-      - name: Executar testes
-        run: pytest -v
+      - name: Executar testes unitários
+        env:
+          PYTHONPATH: .
+        run: python -m pytest tests -v
