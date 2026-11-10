@@ -1,6 +1,6 @@
 import os
 
-import psycopg2
+import psycopg
 import redis
 from dotenv import load_dotenv
 
@@ -13,7 +13,7 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 CACHE_TTL = 60
 
 def get_conn():
-    return psycopg2.connect(DATABASE_URL)
+    return psycopg.connect(DATABASE_URL)
 
 def buscar_produto(id_produto, cursor):
     chave = f"produto:{id_produto}"

@@ -7,11 +7,11 @@ def test_get_conn():
     """Verifica se a conexão utiliza a DATABASE_URL configurada."""
     mock_conn = MagicMock()
 
-    rc.psycopg2.connect = MagicMock(return_value=mock_conn)
+    rc.psycopg.connect = MagicMock(return_value=mock_conn)
 
     resultado = rc.get_conn()
 
-    rc.psycopg2.connect.assert_called_once_with(rc.DATABASE_URL)
+    rc.psycopg.connect.assert_called_once_with(rc.DATABASE_URL)
     assert resultado == mock_conn
 
 def test_buscar_produto_cache_hit(monkeypatch, capsys):
