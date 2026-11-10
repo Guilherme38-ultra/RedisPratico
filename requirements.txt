@@ -1,0 +1,5 @@
+python-dotenv==1.2.2
+psycopg[binary]>=3.2,<4
+redis==8.1.0
+
+ruff==0.17.4
