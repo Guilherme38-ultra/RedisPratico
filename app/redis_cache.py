@@ -6,15 +6,22 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# O DB padrão é 0, mas podemos usar outro 16 bancos padrões do próprio Redis, o que estou utilizando é o 10.
 r = redis.Redis(host="localhost", port=6379, db=10, decode_responses=True)
 
+# Conexão com o banco de dados PostgreSQL por meio de URL, há como fazer por Docker também
 DATABASE_URL = os.getenv("DATABASE_URL")
 
+# Tempo de expiração do cache em segundos (TTL - Time To Live). O atual é de 60 segundos, mas pode ser alterado caso necessário.
+# Não há um TTL padrão, mas é recomendado que seja definido para evitar que o cache fique desatualizado.
+# Ou seja, se não houver um TTL definido, o cache continuará do jeito que estava antes, mas ficará armazenado indefinidamente.
 CACHE_TTL = 60
 
+# Função para obter a conexão com o banco de dados
 def get_conn():
     return psycopg.connect(DATABASE_URL)
 
+# 1. Buscar produto no Redis (cache) e, caso não exista, buscar no PostgreSQL como fallback e assim salvar no Redis.
 def buscar_produto(id_produto, cursor):
     chave = f"produto:{id_produto}"
 
@@ -53,6 +60,7 @@ def buscar_produto(id_produto, cursor):
         f"R$ {float(produto['preco']):.2f}"
     )
 
+# 2. Listar as chaves de produtos presentes no Redis
 def listar_chaves_produtos():
     print("\nChaves de produtos presentes no Redis:")
 
@@ -79,6 +87,7 @@ def listar_chaves_produtos():
     if not encontrou:
         print("Nenhum produto encontrado no cache.")
 
+# Mostrar o menu de opções
 def menu():
     conn = get_conn()
     cursor = conn.cursor()
@@ -109,5 +118,6 @@ def menu():
         cursor.close()
         conn.close()
 
+# Executar o menu se o script for executado diretamente
 if __name__ == "__main__":
     menu()
